@@ -17,3 +17,18 @@ export async function getRecipes(): Promise<Recipe[]> {
   // Return an empty array if no data is returned
   return (data as Recipe[]) || []
 }
+
+export async function getRecipeById(id: number): Promise<Recipe | null> {
+  const { data, error } = await supabase
+    .from('recipes')
+    .select('*')
+    .eq('id', id)
+    .single()
+
+  if (error) {
+    console.error('Error fetching recipe:', error)
+    return null
+  }
+
+  return data as Recipe
+}
