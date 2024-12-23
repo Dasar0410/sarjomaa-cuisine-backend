@@ -32,3 +32,13 @@ export async function getRecipeById(id: number): Promise<Recipe | null> {
 
   return data as Recipe
 }
+
+export async function addRecipe(recipe: Recipe) {
+  const { error } = await supabase
+    .from('recipes')
+    .insert([recipe])
+
+  if (error) {
+    console.error('Error adding recipe:', error)
+  }
+}

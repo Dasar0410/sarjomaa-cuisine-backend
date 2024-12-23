@@ -3,6 +3,7 @@ export interface Recipe {
     title: string
     description: string
     ingredients: JSON
+    steps: JSON
     cuisine: string
     created_at: string
     image_url: string
