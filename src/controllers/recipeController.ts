@@ -1,6 +1,6 @@
 // Handles incoming HTTP requests for recipe operations, invokes services, and sends responses.
 import { Request, Response } from 'express'
-import { getRecipes, getRecipeById as getRecipeByIdService, addRecipe as addRecipeService } from '../services/recipeService'
+import { getRecipes, getRecipeById as getRecipeByIdService, addRecipe as addRecipeService, updateRecipe as updateRecipeService } from '../services/recipeService'
 
 export async function getAllRecipes(req: Request, res: Response) {
   const recipes = await getRecipes()
@@ -20,7 +20,7 @@ export async function getRecipeById(req: Request, res: Response) {
 
 // adds a recipe by calling the addRecipeService function
 export async function addRecipe(req: Request, res: Response) {
-  const [recipe] = req.body
+  const recipe = req.body
   await addRecipeService(recipe)
   console.log(recipe)
   
@@ -31,4 +31,11 @@ export async function addRecipe(req: Request, res: Response) {
     res.status(500).json({ message: 'Error adding recipe' })
   }
 
+}
+
+export async function updateRecipe(req: Request, res: Response) {
+  const [recipe] = req.body
+  await updateRecipeService(recipe)
+  console.log(recipe)
+  res.json({ message: 'Recipe updated successfully' })
 }

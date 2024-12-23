@@ -3,6 +3,7 @@ import { Router } from 'express'
 import { getAllRecipes } from '../controllers/recipeController'
 import { getRecipeById} from '../controllers/recipeController'
 import { addRecipe } from '../controllers/recipeController'
+import { updateRecipe } from '../services/recipeService'
 
 const router = Router()
 
@@ -15,6 +16,8 @@ router.get('/:id', getRecipeById) // GET /recipes/:id
 
 // route to add a recipe
 router.post('/', addRecipe) // POST /recipes
+
+router.put('/:id', updateRecipe) // PUT /recipes/:id
 
 
 export default router
