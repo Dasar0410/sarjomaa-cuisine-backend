@@ -44,13 +44,16 @@ export async function addRecipe(recipe: Recipe) {
 }
 
 
-export async function updateRecipeDB(recipe: Recipe) {
-  const { error } = await supabase
+export async function updateRecipeDB(recipe: Recipe, id: number) {
+  const {error } = await supabase
     .from('recipes')
-    .update(recipe)
-    .eq('id', recipe.id)
+    .update(recipe) // Update the recipe with the new data 
+    .eq('id', id) 
+    .select() // Return the updated record
 
   if (error) {
     console.error('Error updating recipe:', error)
+    return null
   }
+
 }

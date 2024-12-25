@@ -34,8 +34,11 @@ export async function addRecipe(req: Request, res: Response) {
 }
 
 export async function updateRecipe(req: Request, res: Response) {
+  const id = parseInt(req.params.id)
+  console.log(id)
   const recipe = req.body
-  await updateRecipeService(recipe)
   console.log(recipe)
+  await updateRecipeService(recipe, id)
+ 
   res.json({ message: 'Recipe updated successfully' })
 }
