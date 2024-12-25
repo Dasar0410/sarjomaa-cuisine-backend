@@ -1,10 +1,11 @@
 // Handles incoming HTTP requests for recipe operations, invokes services, and sends responses.
 import { Request, Response } from 'express'
-import { getRecipes, getRecipeById as getRecipeByIdService, addRecipe as addRecipeService, updateRecipeDB as updateRecipeService } from '../services/recipeService'
+import { getRecipes, getRecipeById as getRecipeByIdService, addRecipe as addRecipeService, updateRecipeDB as updateRecipeService, deleteRecipeDB} from '../services/recipeService'
 
 export async function getAllRecipes(req: Request, res: Response) {
   const recipes = await getRecipes()
   res.json(recipes)
+  // add some response if no recipes
 }
 
 export async function getRecipeById(req: Request, res: Response) {
@@ -22,7 +23,6 @@ export async function getRecipeById(req: Request, res: Response) {
 export async function addRecipe(req: Request, res: Response) {
   const recipe = req.body
   await addRecipeService(recipe)
-  console.log(recipe)
   
   // check if recipe is added by checking if the recipe object is not empty
   if (recipe) {
@@ -35,10 +35,15 @@ export async function addRecipe(req: Request, res: Response) {
 
 export async function updateRecipe(req: Request, res: Response) {
   const id = parseInt(req.params.id)
-  console.log(id)
   const recipe = req.body
-  console.log(recipe)
   await updateRecipeService(recipe, id)
  
   res.json({ message: 'Recipe updated successfully' })
 }
+
+export async function deleteRecipe(req: Request, res: Response) {
+  const id = parseInt(req.params.id)
+  const recipe = await deleteRecipeDB(id)
+  res.json({ message: 'Recipe deleted successfully'})
+}
+

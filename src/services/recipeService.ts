@@ -57,3 +57,15 @@ export async function updateRecipeDB(recipe: Recipe, id: number) {
   }
 
 }
+
+export async function deleteRecipeDB(id: number) {
+  const {error} = await supabase
+  .from('recipes')
+  .delete()
+  .eq('id', id )
+
+  if (error){
+    console.error('Error deleting recipe: ', error)
+  }
+
+}
