@@ -44,20 +44,13 @@ export async function addRecipe(recipe: Recipe) {
 }
 
 
-export async function updateRecipe(recipe: Recipe) {
-  const updateData = {
-    title: recipe.title,
-    description: recipe.description,
-    ingredients: recipe.ingredients,
-    steps: recipe.steps,
-  };
-
-  const {error} = await supabase
+export async function updateRecipeDB(recipe: Recipe) {
+  const { error } = await supabase
     .from('recipes')
-    .update(updateData)
-    .eq('id', recipe.id);
+    .update(recipe)
+    .eq('id', recipe.id)
 
   if (error) {
-    console.error('Error updating recipe:', error);
+    console.error('Error updating recipe:', error)
   }
 }
