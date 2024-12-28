@@ -22,7 +22,9 @@ export async function getRecipeById(req: Request, res: Response) {
 // adds a recipe by calling the addRecipeService function
 export async function addRecipe(req: Request, res: Response) {
   const recipe = req.body
+  console.log(recipe)
   await addRecipeService(recipe)
+  
   
   // check if recipe is added by checking if the recipe object is not empty
   if (recipe) {
@@ -36,6 +38,7 @@ export async function addRecipe(req: Request, res: Response) {
 export async function updateRecipe(req: Request, res: Response) {
   const id = parseInt(req.params.id)
   const recipe = req.body
+  console.log(recipe)
   await updateRecipeService(recipe, id)
  
   res.json({ message: 'Recipe updated successfully' })
