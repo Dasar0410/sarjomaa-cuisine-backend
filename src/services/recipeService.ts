@@ -18,6 +18,24 @@ export async function getRecipes(): Promise<Recipe[]> {
   return (data as Recipe[]) || []
 }
 
+// Function to get the newest recipes but only information necessary for the recipe card
+export async function getRecipeCardDB(i: number): Promise<Recipe[]> {
+  const { data, error } = await supabase
+    .from('recipes')
+    .select('title, description, image_url, id, cuisine, created_at')
+    .order('created_at', { ascending: false })
+    .limit(i)
+
+  if (error) {
+    console.error('Error fetching recipes:', error)
+    return []
+  }
+
+  // Return an empty array if no data is returned
+  return (data as Recipe[]) || []
+}
+
+
 export async function getRecipeById(id: number): Promise<Recipe | null> {
   const { data, error } = await supabase
     .from('recipes')
